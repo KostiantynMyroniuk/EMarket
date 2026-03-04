@@ -9,7 +9,7 @@ namespace Catalog.API.Extensions
         {
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);
+                options.UseSqlServer(builder.Configuration["DB_STRING"]);
             });
         }
     }

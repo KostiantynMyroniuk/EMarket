@@ -5,19 +5,12 @@ services:
     restart: always
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=55367Ed01!
+      - MSSQL_SA_PASSWORD=${DB_PASSWORD}
       - MSSQL_PID=Developer                       
     ports:
       - "1433:1433"
-    volumes:
-      - ./sql-data:/var/opt/mssql
     networks:
       - emarket
-    healthcheck:
-      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "55367Ed01!", "-Q", "SELECT 1", "-C"]
-      interval: 10s
-      timeout: 3s
-      retries: 10
 
   redis:
     image: redis:latest
@@ -35,8 +28,9 @@ services:
       context: .
       dockerfile: src/Identity.API/Dockerfile
     depends_on: 
-      mssql:
-        condition: service_healthy
+      - mssql
+    env_file:
+      - .env
     networks: 
       - emarket
 
@@ -48,8 +42,9 @@ services:
       context: .
       dockerfile: src/Catalog.API/Dockerfile
     depends_on: 
-      mssql:
-        condition: service_healthy
+      - mssql
+    env_file:
+      - .env
     networks: 
       - emarket
 
@@ -64,6 +59,21 @@ services:
       - redis
     networks: 
       - emarket
+
+  emarket.gateway:
+    image: ${DOCKER_REGISTRY-}emarketgateway
+    ports:
+      - 8000:8080
+    build:
+      context: .
+      dockerfile: src/EMarket.Gateway/Dockerfile
+    depends_on:
+      - identity.api
+      - catalog.api
+      - cart.api
+    networks:
+      - emarket
+    
 
 networks:
   emarket:

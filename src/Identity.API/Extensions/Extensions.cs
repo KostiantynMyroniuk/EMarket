@@ -10,7 +10,7 @@ namespace Identity.API.Extensions
         {
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);
+                options.UseSqlServer(builder.Configuration["DB_STRING"]);
             });
 
             builder.Services.AddAuthorization();

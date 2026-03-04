@@ -1,8 +1,12 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".env" />
+  </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />
   </Project>
   <Project Path="src/Cart.API/Cart.API.csproj" />
   <Project Path="src/Catalog.API/Catalog.API.csproj" />
+  <Project Path="src/EMarket.Gateway/EMarket.Gateway.csproj" Id="755aedd2-990e-4b0b-9815-c858fab115a7" />
   <Project Path="src/Identity.API/Identity.API.csproj" Id="9c9e633e-f3e1-459a-b937-b6072a9616e8" />
 </Solution>

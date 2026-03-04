@@ -6,7 +6,8 @@
       "serviceActions": {
         "identity.api": "StartDebugging",
         "catalog.api": "StartDebugging",
-        "cart.api": "StartDebugging"
+        "cart.api": "StartDebugging",
+        "emarket.gateway": "StartDebugging"
       }
     }
   }

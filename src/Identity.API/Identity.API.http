@@ -1,6 +1,22 @@
-@Identity.API_HostAddress = http://localhost:5260
+@Identity.API_HostAddress = http://localhost:5001
 
-GET {{Identity.API_HostAddress}}/weatherforecast/
-Accept: application/json
+### Реєстрація нового користувача
+POST {{Identity.API_HostAddress}}/register
+Content-Type: application/json
 
-###
+{
+  "email": "testuser@example.com",
+  "password": "YourStrongPassword123!"
+}
+
+
+### Вхід (Логін)
+POST {{Identity.API_HostAddress}}/login
+Content-Type: application/json
+
+{
+  "email": "testuser@example.com",
+  "password": "YourStrongPassword123!",
+  "twoFactorCode": "",
+  "twoFactorRecoveryCode": ""
+}
