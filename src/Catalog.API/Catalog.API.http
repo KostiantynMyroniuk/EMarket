@@ -4,3 +4,14 @@ GET {{Catalog.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+POST {{Catalog.API_HostAddress}}/api/catalog 
+Content-Type: application/json
+{
+  "name": "Laptop Lenovo IdeaPad",
+  "description": "15.6 inch, 16GB RAM, 512GB SSD",
+  "price": 24999.99,
+  "availableStock": 10
+}
+
+###

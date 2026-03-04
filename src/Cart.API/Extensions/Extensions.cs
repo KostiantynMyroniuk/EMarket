@@ -12,7 +12,7 @@ namespace Cart.API.Extensions
 
             builder.Services.AddHttpClient<ICatalogServiceClient, CatalogServiceClient>(client =>
             {
-                client.BaseAddress = new Uri("http://catalog-api:8080");
+                client.BaseAddress = new Uri("http://catalog.api:8080");
             });
         }
     }

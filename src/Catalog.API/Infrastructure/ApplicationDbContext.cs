@@ -10,5 +10,10 @@ namespace Catalog.API.Infrastructure
         }
 
         public DbSet<CatalogItem> CatalogItems { get; set; } = null!;
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.Properties<decimal>().HavePrecision(18, 2);
+        }
     }
 }

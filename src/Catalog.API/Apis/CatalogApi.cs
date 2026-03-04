@@ -59,12 +59,10 @@ namespace Catalog.API.Apis
             CatalogItem item,
             ApplicationDbContext context)
         {
-            var catalogItem = new CatalogItem
+            var catalogItem = new CatalogItem(item.Name)
             {
-                Name = item.Name,
                 Description = item.Description,
                 Price = item.Price,
-                DiscountValue = item.DiscountValue,
                 PictureFileName = item.PictureFileName,
                 AvailableStock = item.AvailableStock 
             };
