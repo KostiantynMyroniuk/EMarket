@@ -11,8 +11,8 @@ namespace Cart.API.Apis
     {
         public static IEndpointRouteBuilder MapCartApi(this IEndpointRouteBuilder app)
         {
-            app.MapGet("api/cart/{userId}", GetCart).WithName("GetMyCart");
-            app.MapPost("/api/cart", AddCartItem).WithName("AddItemToCart");
+            app.MapGet("/{userId}", GetCart).WithName("GetMyCart");
+            app.MapPost("/", AddCartItem).WithName("AddItemToCart");
 
             return app;
         }

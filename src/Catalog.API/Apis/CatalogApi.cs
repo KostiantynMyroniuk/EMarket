@@ -9,11 +9,11 @@ namespace Catalog.API.Apis
     {
         public static IEndpointRouteBuilder MapCatalogApi(this IEndpointRouteBuilder app)
         {
-            app.MapGet("api/catalog/{id:int}", GetItemById).WithName("GetItem");
-            app.MapGet("api/catalog", GetAllItems).WithName("GetAllItems");
-            app.MapPost("api/catalog", CreateItem).WithName("CreateItem");
-            app.MapPut("api/catalog/{id:int}", UpdateItem).WithName("UpdateItem");
-            app.MapDelete("api/catalog/{id:int}", DeleteItem).WithName("DeleteItem");
+            app.MapGet("/{id:int}", GetItemById).WithName("GetItem");
+            app.MapGet("/", GetAllItems).WithName("GetAllItems");
+            app.MapPost("/", CreateItem).WithName("CreateItem");
+            app.MapPut("/{id:int}", UpdateItem).WithName("UpdateItem");
+            app.MapDelete("/{id:int}", DeleteItem).WithName("DeleteItem");
 
             return app;
         }

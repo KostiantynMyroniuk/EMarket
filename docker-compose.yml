@@ -22,8 +22,6 @@ services:
       
   identity.api:
     image: ${DOCKER_REGISTRY-}identityapi
-    ports:
-      - "5001:8080"
     build:
       context: .
       dockerfile: src/Identity.API/Dockerfile
@@ -36,8 +34,6 @@ services:
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
-    ports:
-      - "5002:8080"
     build:
       context: .
       dockerfile: src/Catalog.API/Dockerfile
@@ -50,8 +46,6 @@ services:
 
   cart.api:
     image: ${DOCKER_REGISTRY-}cartapi
-    ports:
-      - "5003:8080"
     build:
       context: .
       dockerfile: src/Cart.API/Dockerfile
@@ -74,7 +68,6 @@ services:
     networks:
       - emarket
     
-
 networks:
   emarket:
     driver: bridge
