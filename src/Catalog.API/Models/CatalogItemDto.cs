@@ -2,10 +2,8 @@
 
 namespace Catalog.API.Models
 {
-    public class CatalogItem
+    public class CatalogItemDto
     {
-        public int Id { get; set; }
-
         [Required]
         public string Name { get; set; }
 
@@ -16,12 +14,5 @@ namespace Catalog.API.Models
         public string? PictureFileName { get; set; }
 
         public int AvailableStock { get; set; }
-
-        public CatalogItem() { }
-        
-        public CatalogItem(string name)
-        {
-            Name = name;
-        }
     }
 }

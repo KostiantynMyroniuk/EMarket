@@ -17,9 +17,22 @@ services:
     container_name: redisdb
     ports:
       - "6379:6379"
+    volumes:
+      - redis-data:/data
     networks: 
       - emarket
-      
+  
+  rabbitmq:
+    image: rabbitmq:4.0-management
+    container_name: rabbitmq-broker
+    ports:
+        - "5672:5672"
+        - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    networks: 
+      - emarket
+
   identity.api:
     image: ${DOCKER_REGISTRY-}identityapi
     build:
@@ -27,9 +40,9 @@ services:
       dockerfile: src/Identity.API/Dockerfile
     depends_on: 
       - mssql
-    env_file:
-      - .env
-    networks: 
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=mssql;Database=EMarket_Identity_Db;User Id=sa;Password=${DB_PASSWORD};TrustServerCertificate=True;
+    networks:
       - emarket
 
   catalog.api:
@@ -37,10 +50,14 @@ services:
     build:
       context: .
       dockerfile: src/Catalog.API/Dockerfile
+    ports:
+      - "5001:8080"
     depends_on: 
       - mssql
-    env_file:
-      - .env
+      - rabbitmq
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=mssql;Database=EMarket_Catalog_Db;User Id=sa;Password=${DB_PASSWORD};TrustServerCertificate=True;
+      - RabbitMQ__Host=rabbitmq
     networks: 
       - emarket
 
@@ -49,8 +66,14 @@ services:
     build:
       context: .
       dockerfile: src/Cart.API/Dockerfile
+    ports:
+      - "5002:8080"
     depends_on: 
       - redis
+      - rabbitmq
+    environment:
+      - RabbitMQ__Host=rabbitmq
+      - Redis__ConnectionString=redis:6379
     networks: 
       - emarket
 
@@ -71,3 +94,7 @@ services:
 networks:
   emarket:
     driver: bridge
+
+volumes:
+  redis-data:
+  rabbitmq-data:

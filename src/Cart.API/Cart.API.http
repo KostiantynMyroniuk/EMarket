@@ -1,21 +1,21 @@
-@Cart.API_HostAddress = http://localhost:5003
+@Cart.API_HostAddress = http://localhost:5002
 
 GET {{Cart.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
 
-POST {{Cart.API_HostAddress}}/api/cart
+POST {{Cart.API_HostAddress}}/
 Content-Type: application/json
 
 {
-  "userId": "1",
+  "userId": "5a6d0aa9-7b17-40ae-b76a-0477ebdde5e8",
   "catalogItemId": 1,
   "quantity": 2
 }
 ###
 
-GET {{Cart.API_HostAddress}}/api/cart/1
+GET {{Cart.API_HostAddress}}/5a6d0aa9-7b17-40ae-b76a-0477ebdde5e8
 Accept: application/json
 
 ###

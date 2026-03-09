@@ -1,5 +1,7 @@
 ﻿using Catalog.API.Infrastructure;
 using Catalog.API.Models;
+using Contracts.Events;
+using MassTransit;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
@@ -75,14 +77,20 @@ namespace Catalog.API.Apis
 
         public static async Task<Results<NoContent, NotFound>> UpdateItem(
             int id,
-            CatalogItem item,
+            CatalogItemDto item,
+            IPublishEndpoint publishEndpoint,
             ApplicationDbContext context)
         {
-            var catalogItem = await context.CatalogItems.FindAsync(item.Id);
+            var catalogItem = await context.CatalogItems.FindAsync(id);
 
             if (catalogItem is null)
             {
                 return TypedResults.NotFound();
+            }
+
+            if (catalogItem.Price != item.Price)
+            {
+                await publishEndpoint.Publish(new ProductPriceChangedIntegrationEvent(id, item.Price));
             }
 
             context.Entry(catalogItem!).CurrentValues.SetValues(item);

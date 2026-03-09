@@ -13,7 +13,7 @@ namespace Cart.API.Services
 
         public async Task<CatalogItemDto?> GetCatalogItemAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"api/catalog/{id}");
+            var response = await _httpClient.GetAsync($"/{id}");
 
             if (!response.IsSuccessStatusCode)
             {

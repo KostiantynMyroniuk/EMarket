@@ -72,9 +72,13 @@ namespace Cart.API.Apis
                     Quantity = request.Quantity,
                     UnitPrice = catalogItem.Price,
                 });
+
+                var productSet = $"product:{request.CatalogItemId}:carts";
+                await db.SetAddAsync(productSet, $"cart:{request.UserId}");
             }
 
-            await db.StringSetAsync($"cart:{request.UserId}", JsonSerializer.Serialize(cart), TimeSpan.FromMinutes(2));
+            //Для розробки 5 хвилин життя кошику
+            await db.StringSetAsync($"cart:{request.UserId}", JsonSerializer.Serialize(cart), TimeSpan.FromMinutes(5));
 
             return TypedResults.Ok();
         }
